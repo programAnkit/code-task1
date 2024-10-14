@@ -1,0 +1,38 @@
+import os
+
+# Function to rename files in a specified directory
+def rename_files(directory, prefix):
+    try:
+        # List all files in the specified directory
+        files = os.listdir(directory)
+
+        print(f"Files found in directory: {files}")
+        print("\nRenaming files...")
+
+        # Loop through the files and rename them
+        for count, filename in enumerate(files, start=1):
+            # Extract file extension
+            file_extension = os.path.splitext(filename)[1]
+            
+            # Create new filename
+            new_filename = f"{prefix}_{count}{file_extension}"
+
+            # Construct full file path
+            src = os.path.join(directory, filename)
+            dst = os.path.join(directory, new_filename)
+
+            # Rename the file
+            os.rename(src, dst)
+            print(f"Renamed: {filename} -> {new_filename}")
+
+        print("\nAll files renamed successfully!")
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Path to the directory containing files to rename
+directory_path = "path_to_your_directory"  # Replace with your actual directory path
+file_prefix = "renamed_file"  # Prefix for renamed files
+
+# Call the rename function
+rename_files(directory_path, file_prefix)
