@@ -1,0 +1,43 @@
+import random
+
+def hangman():
+    # List of words to choose from
+    words = ['Ankit', 'Golu', 'Pratik', 'Varun', 'Himanshu']
+    word = random.choice(words).lower()  # Randomly select a word
+    guessed_letters = []  # Track the letters the player has guessed
+    tries = 6  # Number of tries the player has
+    display_word = ["_" for _ in word]  # Display blank spaces for letters in the word
+
+    print("Welcome to Hangman!")
+
+    # Main game loop
+    while tries > 0 and "_" in display_word:
+        print("\nCurrent word: " + " ".join(display_word))
+        print(f"Tries left: {tries}")
+        guess = input("Guess a letter: ").lower()
+
+        # Check if the letter has already been guessed
+        if guess in guessed_letters:
+            print("You've already guessed that letter!")
+            continue
+
+        guessed_letters.append(guess)
+
+        # Check if the guess is in the word
+        if guess in word:
+            print(f"Good guess! '{guess}' is in the word.")
+            for i in range(len(word)):
+                if word[i] == guess:
+                    display_word[i] = guess
+        else:
+            tries -= 1
+            print(f"Sorry, '{guess}' is not in the word.")
+
+    # End of the game
+    if "_" not in display_word:
+        print(f"\nCongratulations! You've guessed the word: {word}")
+    else:
+        print(f"\nGame Over! The word was: {word}")
+
+# Run the game
+hangman()
